@@ -1,0 +1,283 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% University Assignment Title Page 
+% LaTeX Template
+% Version 1.0 (27/12/12)
+%
+% This template has been downloaded from:
+% http://www.LaTeXTemplates.com
+%
+% Original author:
+% WikiBooks (http://en.wikibooks.org/wiki/LaTeX/Title_Creation)
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+% 
+% Instructions for using this template:
+% This title page is capable of being compiled as is. This is not useful for 
+% including it in another document. To do this, you have two options:
+%
+% 1) Copy/paste everything between \begin{document} and \end{document} 
+% starting at \begin{titlepage} and paste this into another LaTeX file where you 
+% want your title page.
+% OR
+% 2) Remove everything outside the \begin{titlepage} and \end{titlepage} and 
+% move this file to the same directory as the LaTeX file you wish to add it to. 
+% Then add \input{./title_page_1.tex} to your LaTeX file where you want your
+% title page.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\title{Title page with logo}
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass[12pt]{article}
+\usepackage[english]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage[colorinlistoftodos]{todonotes}
+\usepackage{wrapfig}
+
+\usepackage{amsmath}
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
+
+\makeatletter
+\def\BState{\State\hskip-\ALG@thistlm}
+\makeatother
+
+\begin{document}
+
+\begin{titlepage}
+
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}} % Defines a new command for the horizontal lines, change thickness here
+
+\center % Center everything on the page
+ 
+%----------------------------------------------------------------------------------------
+%	HEADING SECTIONS
+%----------------------------------------------------------------------------------------
+
+\textsc{\small University of Bristol}\\[1.5cm] % Name of your university/college
+\textsc{\Large COMSM0012 Robotics Systems}\\[0.5cm] % Major heading such as course name
+%\textsc{\large Minor Heading}\\[0.5cm] % Minor heading such as course title
+
+%----------------------------------------------------------------------------------------
+%	TITLE SECTION
+%----------------------------------------------------------------------------------------
+
+\HRule \\[0.4cm]
+{ \huge \bfseries CCLS-1}\\[0.4cm] % Title of your document
+\HRule \\[1.5cm]
+ 
+%----------------------------------------------------------------------------------------
+%	AUTHOR SECTION
+%----------------------------------------------------------------------------------------
+
+\begin{minipage}{0.4\textwidth}
+\begin{flushleft} \large
+\emph{Team members:}\\
+Carlos Pino [\textsc{cp15437}]\\ % Your name
+Suppanat Ruangdech [\textsc{}]\\
+Luis Diaz [\textsc{}]\\
+Chris Sevastoupouls [\textsc{}]
+\end{flushleft}
+\end{minipage}
+~
+\begin{minipage}{0.4\textwidth}
+\begin{flushright} \large
+\emph{Contribution:} \\
+25\%\\ % each one contibution
+25\%\\ % each one contibution
+25\%\\ % each one contibution
+25\% % each one contibution
+\end{flushright}
+\end{minipage}\\[2cm]
+
+% If you don't want a supervisor, uncomment the two lines below and remove the section above
+%\Large \emph{Author:}\\
+%John \textsc{Smith}\\[3cm] % Your name
+
+%----------------------------------------------------------------------------------------
+%	DATE SECTION
+%----------------------------------------------------------------------------------------
+
+{\large \today}\\[5cm] % Date, change the \today to a set date if you want to be precise
+
+%----------------------------------------------------------------------------------------
+%	LOGO SECTION
+%----------------------------------------------------------------------------------------
+
+\includegraphics{UoB.png}\hspace{2cm}%this will require the graphicx package
+
+ 
+%----------------------------------------------------------------------------------------
+
+\vfill % Fill the rest of the page with whitespace
+
+\end{titlepage}
+
+
+%\begin{abstract}
+%Your abstract.
+%\end{abstract}
+
+%\section{Aims and Objectives}
+
+%Your introduction goes here! Some examples of commonly used commands and features are listed below, to help you get started.
+%
+%If you have a question, please use the support box in the bottom right of the screen to get in touch. 
+
+%\section{Motivation}
+%\label{sec:examples}
+
+%\subsection{Sections}
+
+%Use section and subsection commands to organize your document. \LaTeX{} handles all the formatting and numbering automatically. Use ref and label commands for cross-references.
+
+%\subsection{Comments}
+
+%Comments can be added to the margins of the document using the \todo{Here's a comment in the margin!} todo command, as shown in the example on the right. You can also add inline comments too:
+%
+%\todo[inline, color=green!40]{This is an inline comment.}
+
+%\section{Literature Review}
+
+%Use the table and tabular commands for basic tables --- see Table~\ref{tab:widgets}, for example. You can upload a figure (JPEG, PNG or PDF) using the files menu. To include it in your document, use the includegraphics command as in the code for Figure~\ref{fig:frog} below.
+
+% Commands to include a figure:
+%\begin{figure}
+%\centering
+%\includegraphics[width=0.5\textwidth]{frog.jpg}
+%\caption{\label{fig:frog}This is a figure caption.}
+%\end{figure}
+%
+%\begin{table}
+%\centering
+%\begin{tabular}{l|r}
+%Item & Quantity \\\hline
+%Widgets & 42 \\
+%Gadgets & 13
+%\end{tabular}
+%\caption{\label{tab:widgets}An example table.}
+%\end{table}
+
+%\section{Risk Register}
+
+%\LaTeX{} is great at typesetting mathematics. Let $X_1, X_2, \ldots, X_n$ be a sequence of independent and identically distributed random variables with $\text{E}[X_i] = \mu$ and $\text{Var}[X_i] = \sigma^2 < \infty$, and let
+%$$S_n = \frac{X_1 + X_2 + \cdots + X_n}{n}
+%      = \frac{1}{n}\sum_{i}^{n} X_i$$
+%denote their mean. Then as $n$ approaches infinity, the random variables $\sqrt{n}(S_n - \mu)$ converge in distribution to a normal $\mathcal{N}(0, \sigma^2)$.
+
+%\section{Timeline}
+
+%You can make lists with automatic numbering \dots
+%
+%\begin{enumerate}
+%\item Like this,
+%\item and like this.
+%\end{enumerate}
+%\dots or bullet points \dots
+%\begin{itemize}
+%\item Like this,
+%\item and like this.
+%\end{itemize}
+
+%We hope you find write\LaTeX\ useful, and please let us know if you have any feedback using the help menu above.
+
+%---------------------------------------------------
+%Actual start of document after all the explanations
+%---------------------------------------------------
+
+\tableofcontents
+
+\section{Introduction}
+
+\section{Robot building and design}
+
+\section{Calibration and sensor modeling}
+
+\section{Localization}
+In the past decade several algorithms for localization have been developed, with the increase of the performance of the computers we have been able to make more robust probabilistic algorithms. In the Robotics System lecture we have studied the particle filter giving us the main idea how to accomplish this algorithm in a real robot.
+As suggested in the lectures this algorithm was chosen to accomplish the robot localization problem. 
+
+\subsection{Particle filter}
+This is a variant of the Bayes filter based on importance sampling, the key idea of the particle filter is to represent the posterior \( bel(x_{t}) \) by a set of random state samples drawn from this posterior.
+
+%This part is for pseudo code inside text
+\begin{algorithm}
+\caption{Particle filter}\label{euclid}
+\begin{algorithmic}[1]
+\Procedure{Localization}{}
+\State $\textit{Generate random located particles}$
+%\State $i \gets \textit{patlen}$
+%\BState \emph{top}:
+\While {$converged = \textit{false}$}
+\State $Robot \gets ultraScan$.
+\State $Particles \gets ultraScan$.
+\State $Score Particles$.
+\State $Re sampling$.
+\State $Convergence$.
+\If {$\textit{converged} = \textit{true}$}
+\State \textbf{goto} \emph{end}.
+\EndIf
+\State $Respawn$.
+\State $Robot \gets move$.
+\State $Particles \gets move$.
+\EndWhile
+\State \textbf{end}.
+
+%\State \textbf{goto} \emph{loop}.
+%\State \textbf{close};
+%\State $i \gets i+\max(\textit{delta}_1(\textit{string}(i)),\textit{delta}_2(j))$.
+%\State \textbf{goto} \emph{top}.
+\EndProcedure
+\end{algorithmic}
+\end{algorithm}
+Algorithm 1 presents the pseudo code of the particle filter implemented in matlab for both options (simulation and real). In the next section we are going to describe in detail the approaches that were used in every stage of the algorithm.
+\subsubsection{Matlab program}
+For this part, a template program was giving to us containing the matlab object oriented class Botsim and some examples to see how this template works and to be able to adjust our localization approach to this program.
+This class contains several useful functions as move, turn, set position, get position, etc.
+The first step we did with this code was to make a copy of this object to split the robot with the particles, to ensure not to "cheat" in the simulation. We called this new object as ParticleSim, and added two more structures (setWeight and getWeight) to save in every particle its weighting. One of the main concerns of this program was to  develop a simulation platform before doing the real robot 
+\paragraph{Random particles}
+Now that we have separate class objects we started to generate the random particles inside the map using the randomPose function. After many trials the best number of initial particles for performance and speed were 400.
+\paragraph{Scanning}
+To be able to locate the robot inside the map we need a sensor feedback, for this task an ultrasonic sensor was supplied for the NXT brick. This sensor give us the distance in cm. We used the function ultraScan that rotates the sensor and takes reading a specified number of times with equally spaced motor angel rotation. The default was 6 but in this approach we chose 8 scans per ultraScan so we can get a better estimation of the robot's position. This ultraScan has to be made for the robot and for every particle.
+\paragraph{Scoring}
+Scoring is to assign some kind of score to each particle. First for each particle we calculated the difference against the robot in the 8 scans taken, but to be able to select the best orientation of the particles we used the circshift function of matlab that allow us to shift the particles reading vector and save the best position. After having the best position of the particles we weighted every particle using the normal distribution formula:
+\begin{equation}
+P(x) = \frac{1}{{\sigma \sqrt {2\pi } }}e^{{{ - \left( {x - \mu } \right)^2 } \mathord{\left/ {\vphantom {{ - \left( {x - \mu } \right)^2 } {2\sigma ^2 }}} \right. \kern-\nulldelimiterspace} {2\sigma ^2 }}}
+\end{equation}
+where \( x-\mu\) is the already best difference found of each particle. After weighting all the particles we normalized the results, this way the sum of all the weights is always going to be equal to 1. Is very important in this step adding the damping factor after calculating the weight, because if it is not used all the particles accumulates in one single position, killing the rest.
+\paragraph{Re-sampling}
+The approach taken to re-sample the particles was to save every particle weight and sort it from higher to lower. According to the normalized weighting we got how many particles should be re sampled, the more weight the more particles associated will have \(( weighting*numParticles\)).
+\paragraph{Convergence}
+With our particles located in the possible robot location, we chose the first 30\% of the particles that are more likely to contain the right info. From this info we got the standard deviation of the position and the angle and after many trials we found that if the standard deviation is less than 1e-12 we can stop the algorithm and return the robot position and direction.
+\paragraph{Respawn}
+This is a very important step for the robustness of the algorithm, if we don't respawn the particles we can get stuck in one position (local optima) never having the change to find the correct location. In our approach we are respawning 70\% of the particles in random locations.
+\paragraph{Movement}
+In order to accomplish the particle filter we need to move the robot in an exploratory way, giving more probability to find the correct position. All the particles must move the same way as the robot.
+In our program we made the exploratory movement as follows:
+\begin{itemize}
+\item Turn and then move forward if the first sensor reading is more than a set threshold, if it is less just turn (80\% of the time).
+\item Move forward if the first scan reading is less than a threshold, if not turn and then move (20\% of the time).
+\end{itemize}
+For the particles we make the same movement but we check if with the movement the particle continue inside the map, if not that particle does not move.
+
+
+
+\section{Path planning}
+\subsection{A*}
+\subsection{Simulation}
+\subsection{Real robot}
+
+\section{Real robot implementation}
+\subsection{Results}
+
+\section{Challenges}
+
+\section{References}
+
+
+\end{document}

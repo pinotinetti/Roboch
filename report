@@ -60,7 +60,7 @@
 %----------------------------------------------------------------------------------------
 
 \textsc{\small University of Bristol}\\[1.5cm] % Name of your university/college
-\textsc{\Large COMSM0012 Robotics Systems}\\[0.5cm] % Major heading such as course name
+\textsc{\Large COMSM0012 Robotics Systems PG}\\[0.5cm] % Major heading such as course name
 %\textsc{\large Minor Heading}\\[0.5cm] % Minor heading such as course title
 
 %----------------------------------------------------------------------------------------
@@ -68,7 +68,7 @@
 %----------------------------------------------------------------------------------------
 
 \HRule \\[0.4cm]
-{ \huge \bfseries CCLS-1}\\[0.4cm] % Title of your document
+{ \huge \bfseries Coursework1}\\[0.4cm] % Title of your document
 \HRule \\[1.5cm]
  
 %----------------------------------------------------------------------------------------
@@ -78,10 +78,11 @@
 \begin{minipage}{0.4\textwidth}
 \begin{flushleft} \large
 \emph{Team members:}\\
+Luis Diaz [\textsc{ld15325}]\\
 Carlos Pino [\textsc{cp15437}]\\ % Your name
-Suppanat Ruangdech [\textsc{}]\\
-Luis Diaz [\textsc{}]\\
-Chris Sevastoupouls [\textsc{}]
+Suppanat (Top) Ruangdech [\textsc{}]\\
+Christos Sevastopoulos [\textsc{cs15427}]\\
+
 \end{flushleft}
 \end{minipage}
 ~
@@ -109,7 +110,7 @@ Chris Sevastoupouls [\textsc{}]
 %	LOGO SECTION
 %----------------------------------------------------------------------------------------
 
-\includegraphics{UoB.png}\hspace{2cm}%this will require the graphicx package
+%\includegraphics{UoB.png}\hspace{2cm}%this will require the graphicx package
 
  
 %----------------------------------------------------------------------------------------
@@ -192,18 +193,40 @@ Chris Sevastoupouls [\textsc{}]
 
 \tableofcontents
 
+\newpage
 \section{Introduction}
+It is common knowledge that navigation and localization constitute a highly important part of robotics. In this coursework, the functionality of the robot is determined by the use of an NXT Mindstorms microcontroller along with an NXT servo-motor and an Ultrasonic sensor. The movement and the control of the robot is accomplished using MATLAB in conjunction with the Mindstorms NXT toolbox. Specifically, the project consists of the simulated and the actual implementation parts respectively. 
+\par
+As far as the localization of the robot is concerned, the Particle filter approach 
+is employed. At the next stage, the path planning procedure is going to be achieved using the A* algorithm.Since the ground is prepared, the real implementation of the robot will demonstrate the robustness of the our work.
 
-\section{Robot building and design}
 
-\section{Calibration and sensor modeling}
+\section{Robot Building and Design}
+The building of our robot (Figure 1) was based on a custom approach which apart from two front wheels uses a roller as an additional attachment. The rationale behind the building is illustrated in the following sentences. In particular , we placed two servo-motors behind each front wheel in order to simplify the control of the robot and a third servo-motor to control the sensor and thus  prevent any possible collisions that might occur. On the other hand, the use of the roller acts as a technique to overcome the undesirable effect of friction. What is more, we had also to take under consideration the fact that the height of the arena's walls is approximately twenty centimeters and as a consequence the sensor should not be placed over that . 
+\par
+
+
+Furthermore, another vital advantage  of our design is the fact that we have the ability to perform measurements using the sensor that are not dependent on the robot's motion.Particularly, odometry will not be a serious concern since less actuators are involved in our endeavor. As a result , this eventually leads to less energy consumption, less  unnecessary error modeling  and to a more accurate response from the sensor.
+
+
+\section{Calibration and Sensor Modeling}
+
+As far as the calibration process is concerned, many sensor readings were taken in order to model the error. Therefore , we had the ability to compare the readings to the manual measurements taken with a metric tape. Furthermore, after placing the sensor in different orientations (using steps of 45 degrees) , we gathered some additional readings which are shown in the next table  
+\par
+To model the odometry, we used the Gaussian distribution. 
+
+%Samples were taken
+%Both epsilon and fi may come from a Gaussian approximation with zero mean and obtained
+%from experimental data. They may also be a function of t and theta respectively.
+%Note that in this case, noise during pure rotation (t=0) may only affect theta while
+%noise during a pure translation (alpha=0) normally affects robot’s orientation too so
+%theta new= theta old + beta where beta is usually > than fi for larger distances t travelled. 
 
 \section{Localization}
-In the past decade several algorithms for localization have been developed, with the increase of the performance of the computers we have been able to make more robust probabilistic algorithms. In the Robotics System lecture we have studied the particle filter giving us the main idea how to accomplish this algorithm in a real robot.
-As suggested in the lectures this algorithm was chosen to accomplish the robot localization problem. 
+In the past decade, several localization algorithms were developed and along with the increase of the computers' performance , more probabilistic algorithms were robustly produced. Moreover, a quite common approach is the "Particle Filter" one.
 
-\subsection{Particle filter}
-This is a variant of the Bayes filter based on importance sampling, the key idea of the particle filter is to represent the posterior \( bel(x_{t}) \) by a set of random state samples drawn from this posterior.
+\subsection{Particle Filter}
+For starters, Particle Filter is a variant of the Bayes filter based on importance sampling. Its key idea concerns representing the posterior belief \( bel(x_{t}) \) by a set of random state samples drawn from this posterior.
 
 %This part is for pseudo code inside text
 \begin{algorithm}
@@ -235,8 +258,8 @@ This is a variant of the Bayes filter based on importance sampling, the key idea
 \EndProcedure
 \end{algorithmic}
 \end{algorithm}
-Algorithm 1 presents the pseudo code of the particle filter implemented in matlab for both options (simulation and real). In the next section we are going to describe in detail the approaches that were used in every stage of the algorithm.
-\subsubsection{Matlab program}
+Algorithm 1 depicts the pseudo code of the particle filter implemented in MATLAB for both areas (simulation and real). In the next section we are going to describe in detail the approaches that were used in every stage of the algorithm.
+\subsubsection{MATLAB program}
 For this part, a template program was giving to us containing the matlab object oriented class Botsim and some examples to see how this template works and to be able to adjust our localization approach to this program.
 This class contains several useful functions as move, turn, set position, get position, etc.
 The first step we did with this code was to make a copy of this object to split the robot with the particles, to ensure not to "cheat" in the simulation. We called this new object as ParticleSim, and added two more structures (setWeight and getWeight) to save in every particle its weighting. One of the main concerns of this program was to  develop a simulation platform before doing the real robot 
@@ -245,7 +268,7 @@ Now that we have separate class objects we started to generate the random partic
 \paragraph{Scanning}
 To be able to locate the robot inside the map we need a sensor feedback, for this task an ultrasonic sensor was supplied for the NXT brick. This sensor give us the distance in cm. We used the function ultraScan that rotates the sensor and takes reading a specified number of times with equally spaced motor angel rotation. The default was 6 but in this approach we chose 8 scans per ultraScan so we can get a better estimation of the robot's position. This ultraScan has to be made for the robot and for every particle.
 \paragraph{Scoring}
-Scoring is to assign some kind of score to each particle. First for each particle we calculated the difference against the robot in the 8 scans taken, but to be able to select the best orientation of the particles we used the circshift function of matlab that allow us to shift the particles reading vector and save the best position. After having the best position of the particles we weighted every particle using the normal distribution formula:
+Scoring is to assign some kind of score to each particle. First for each particle we calculated the difference against the robot in the 8 scans taken, but to be able to select the best orientation of the particles we used the circshift function of MATLAB that allow us to shift the particles reading vector and save the best position. After having the best position of the particles we weighted every particle using the normal distribution formula:
 \begin{equation}
 P(x) = \frac{1}{{\sigma \sqrt {2\pi } }}e^{{{ - \left( {x - \mu } \right)^2 } \mathord{\left/ {\vphantom {{ - \left( {x - \mu } \right)^2 } {2\sigma ^2 }}} \right. \kern-\nulldelimiterspace} {2\sigma ^2 }}}
 \end{equation}
@@ -265,20 +288,26 @@ In our program we made the exploratory movement as follows:
 \end{itemize}
 For the particles we make the same movement but we check if with the movement the particle continue inside the map, if not that particle does not move.
 
+\section{Path Planning}
+%\subsection{A*}
+%\subsection{Simulation}
+%\subsection{Real Robot}
 
-
-\section{Path planning}
-test
-\subsection{A*}
-\subsection{Simulation}
-\subsection{Real robot}
-
-\section{Real robot implementation}
-\subsection{Results}
+\section{Real Robot Implementation}
+%\subsection{Results}
 
 \section{Challenges}
-
+\subsection{Inaccuracy with Ultrasonic Readings}
+Initially, the primary challenge lies on the perpetual improvement of the robot's speed and the precision of the sensor readings. As a consequence, many different designs were implemented until a certain level of precision and speed standards was reached.  
+\par
+In particular, a major challenge that needed to be overcome was the misreading of the sensor when the robot's orientation was forming an angle of 45 degrees with wall.Hence, there was a disparity between the sensor's and the particle filter readings respectively. Nevertheless, a way to tackle this was to apply a continuous (instead of a partial) motion of the sensor during which, readings were received every single degree. This was proven advantageous since a direct improvement of the localization was observed.
+ 
+%\subsection{Design Improvement: From Rear wheel to Passive Roller}
+%\subsection{Inaccuracy with Ultrasonic Readings}
+\subsection{Particle Spread Method}
+Primarily, a specific challenge lies on decreasing the time of convergence of the particle filter. That challenge is strongly related to the initialization of the map and the initial distribution of the particles. Our approach towards dealing with that challenge was to modify the random pattern in which the particles were spread to a more coordinated one such as a rectangular grid. Therefore, we observed a better re sampling of the particles.   
+\subsection{Collision Protection during the Path Planning}
+In general, once the robot is efficiently localized a path planning procedure has to be executed without further measurements.Since the localization is not always exact, a unreliable representation of the map might be deduced which could lead to non welcome collisions. However, in our approach we proposed an additional reading as a preventative way within the path planning stage. So, a clearer navigation can be realized .
+%\subsection{}
 \section{References}
-
-
 \end{document}

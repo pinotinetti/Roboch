@@ -222,10 +222,9 @@ To model the odometry, we used the Gaussian distribution.
 %noise during a pure translation (alpha=0) normally affects robot’s orientation too so
 %theta new= theta old + beta where beta is usually > than fi for larger distances t travelled. 
 
-\section{Localization}
+\section{Particle Filter}
 In the past decade, several localization algorithms were developed and along with the increase of the computers' performance , more probabilistic algorithms were robustly produced. Moreover, a quite common approach is the "Particle Filter" one.
 
-\subsection{Particle Filter}
 For starters, Particle Filter is a variant of the Bayes filter based on importance sampling. Its key idea concerns representing the posterior belief \( bel(x_{t}) \) by a set of random state samples drawn from this posterior.
 
 %This part is for pseudo code inside text
@@ -259,7 +258,7 @@ For starters, Particle Filter is a variant of the Bayes filter based on importan
 \end{algorithmic}
 \end{algorithm}
 Algorithm 1 depicts the pseudo code of the particle filter implemented in MATLAB for both areas (simulation and real). In the next section we are going to describe in detail the approaches that were used in every stage of the algorithm.
-\subsubsection{MATLAB program}
+\subsection{MATLAB program}
 For this part, a template program was giving to us containing the matlab object oriented class Botsim and some examples to see how this template works and to be able to adjust our localization approach to this program.
 This class contains several useful functions as move, turn, set position, get position, etc.
 The first step we did with this code was to make a copy of this object to split the robot with the particles, to ensure not to "cheat" in the simulation. We called this new object as ParticleSim, and added two more structures (setWeight and getWeight) to save in every particle its weighting. One of the main concerns of this program was to  develop a simulation platform before doing the real robot

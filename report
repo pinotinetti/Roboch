@@ -104,13 +104,13 @@ Christos Sevastopoulos [\textsc{cs15427}]\\
 %	DATE SECTION
 %----------------------------------------------------------------------------------------
 
-{\large \today}\\[5cm] % Date, change the \today to a set date if you want to be precise
+{\large \today}\\[3cm] % Date, change the \today to a set date if you want to be precise
 
 %----------------------------------------------------------------------------------------
 %	LOGO SECTION
 %----------------------------------------------------------------------------------------
 
-%\includegraphics{UoB.png}\hspace{2cm}%this will require the graphicx package
+\includegraphics{UoB.png}\hspace{1cm}%this will require the graphicx package
 
  
 %----------------------------------------------------------------------------------------
@@ -262,9 +262,18 @@ Algorithm 1 depicts the pseudo code of the particle filter implemented in MATLAB
 \subsubsection{MATLAB program}
 For this part, a template program was giving to us containing the matlab object oriented class Botsim and some examples to see how this template works and to be able to adjust our localization approach to this program.
 This class contains several useful functions as move, turn, set position, get position, etc.
-The first step we did with this code was to make a copy of this object to split the robot with the particles, to ensure not to "cheat" in the simulation. We called this new object as ParticleSim, and added two more structures (setWeight and getWeight) to save in every particle its weighting. One of the main concerns of this program was to  develop a simulation platform before doing the real robot 
-\paragraph{Random particles}
-Now that we have separate class objects we started to generate the random particles inside the map using the randomPose function. After many trials the best number of initial particles for performance and speed were 400.
+The first step we did with this code was to make a copy of this object to split the robot with the particles, to ensure not to "cheat" in the simulation. We called this new object as ParticleSim, and added two more structures (setWeight and getWeight) to save in every particle its weighting. One of the main concerns of this program was to  develop a simulation platform before doing the real robot
+
+\paragraph{Particle initiation}
+The first step in the particle filter is to initiate the particles around the map. We accomplished this step by getting the distances of x and y of the map, then we generate the number of particles according to these lengths. This particles are evenly separated with each other and facing at angle 0º. We can take this approach with the angle because in our weighting function we are shifting the scan vector to find which is the best orientation.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.3\textwidth]{initialParticles.PNG}
+\includegraphics[width=0.3\textwidth]{initialParticles1.PNG}
+\caption{Particle initiation}
+\end{figure}
+
 \paragraph{Scanning}
 To be able to locate the robot inside the map we need a sensor feedback, for this task an ultrasonic sensor was supplied for the NXT brick. This sensor give us the distance in cm. We used the function ultraScan that rotates the sensor and takes reading a specified number of times with equally spaced motor angel rotation. The default was 6 but in this approach we chose 8 scans per ultraScan so we can get a better estimation of the robot's position. This ultraScan has to be made for the robot and for every particle.
 \paragraph{Scoring}
@@ -272,21 +281,24 @@ Scoring is to assign some kind of score to each particle. First for each particl
 \begin{equation}
 P(x) = \frac{1}{{\sigma \sqrt {2\pi } }}e^{{{ - \left( {x - \mu } \right)^2 } \mathord{\left/ {\vphantom {{ - \left( {x - \mu } \right)^2 } {2\sigma ^2 }}} \right. \kern-\nulldelimiterspace} {2\sigma ^2 }}}
 \end{equation}
-where \( x-\mu\) is the already best difference found of each particle. After weighting all the particles we normalized the results, this way the sum of all the weights is always going to be equal to 1. Is very important in this step adding the damping factor after calculating the weight, because if it is not used all the particles accumulates in one single position, killing the rest.
+where \( x-\mu\) is the already best difference found of each particle. After weighting all the particles we normalized the results, this way the sum of all the weights is always going to be equal to 1. Is very important in this step adding the damping factor after calculating the weight, because if it is not used all the particles accumulates in one single position, killing the rest. we took the damping factor as a variable of the number of particles created.
 \paragraph{Re-sampling}
 The approach taken to re-sample the particles was to save every particle weight and sort it from higher to lower. According to the normalized weighting we got how many particles should be re sampled, the more weight the more particles associated will have \(( weighting*numParticles\)).
+
 \paragraph{Convergence}
-With our particles located in the possible robot location, we chose the first 30\% of the particles that are more likely to contain the right info. From this info we got the standard deviation of the position and the angle and after many trials we found that if the standard deviation is less than 1e-12 we can stop the algorithm and return the robot position and direction.
+We proceed to calculate the standard deviation of the position of all particles, and when they met a certain value, we could say that we converged in the position of the first particle of the sorted weighted vector. To determine the angle we created a new particle in that position and ran the ultraScan with the findangle function to get the best angle. In this step we have already located the robot position if the standard deviation is met.
+
 \paragraph{Respawn}
-This is a very important step for the robustness of the algorithm, if we don't respawn the particles we can get stuck in one position (local optima) never having the change to find the correct location. In our approach we are respawning 70\% of the particles in random locations.
+This is a very important step for the robustness of the algorithm, if we don't respawn the particles we can get stuck in one position (local optima) never having the change to find the correct location. In our approach we are respawning 1 every 5 particles in random locations.
 \paragraph{Movement}
 In order to accomplish the particle filter we need to move the robot in an exploratory way, giving more probability to find the correct position. All the particles must move the same way as the robot.
 In our program we made the exploratory movement as follows:
 \begin{itemize}
-\item Turn and then move forward if the first sensor reading is more than a set threshold, if it is less just turn (80\% of the time).
-\item Move forward if the first scan reading is less than a threshold, if not turn and then move (20\% of the time).
+\item Check from the first scan the distance to the wall if is less than 10 cm, get the reading from the left and right side. The robot it is going to turn to the greater distance between them.
+\item After checking step number one the robot will move forward 5 cm at a time.
 \end{itemize}
-For the particles we make the same movement but we check if with the movement the particle continue inside the map, if not that particle does not move.
+For the particles we make the same movement but we check if with the movement the particle continue inside the map, if not that particle gets respawn in a random location.
+
 
 \section{Path Planning}
 %\subsection{A*}
